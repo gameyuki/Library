@@ -19,18 +19,31 @@ public:
 	/*
 	*	インスタンスの生成
 	*/
-	inline static void Create();
+	inline static void Create()
+	{
+		if (m_pInstance == nullptr)
+		{
+			m_pInstance = new Type();
+		}
+	}
 
 	/*
 	*	インスタンスの破棄
 	*/
-	inline static void Delete();
+	inline static void Delete()
+	{
+		delete m_pInstance;
+		m_pInstance = nullptr;
+	}
 
 	/*
 	*	インスタンスの取得	
 	*	return インスタンス
 	*/
-	inline static Type* GetInstance();
+	inline static Type* GetInstance()
+	{
+		return m_pInstance;
+	}
 
 protected:
 	/*
@@ -40,8 +53,8 @@ protected:
 
 	/* コンストラクタ関数とデストラクタ関数は理由が無い場合以外は触らない */
 	/* どのタイミングでこのクラスが作られたかとか */
-	SingletonBase();
-	 virtual ~SingletonBase();
+	inline SingletonBase() {};
+	inline  virtual ~SingletonBase() {};
 };
 
 
