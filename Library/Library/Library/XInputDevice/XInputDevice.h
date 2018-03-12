@@ -47,6 +47,9 @@ enum Analog
 class XInputDevice : public SingletonBase<XInputDevice>
 {
 public:
+	//--------------------------------------------------
+	//	public function
+	//--------------------------------------------------
 	/*
 	*	デストラクタ
 	*/
