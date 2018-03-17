@@ -3,6 +3,10 @@
 //--------------------------------------------------
 #include"XInputDevice.h"
 
+
+//--------------------------------------------------
+//	public function
+//--------------------------------------------------
 bool XInputDevice::GetLeftAnalog(Analog _analogstate)
 {
 	switch (_analogstate)

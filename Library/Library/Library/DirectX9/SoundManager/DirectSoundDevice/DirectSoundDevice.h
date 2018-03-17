@@ -1,18 +1,19 @@
-#ifndef WINDOWS_H
-#define	WINDOWS_H
+#ifndef DIRECTSOUNDDEVICE_H
+#define	DIRECTSOUNDDEVICE_H
 
 //--------------------------------------------------
 //	include
 //--------------------------------------------------
 #include<Windows.h>
+#include<dsound.h>
 
 //--------------------------------------------------
-//	 class
+//	class
 //--------------------------------------------------
 /*
-*	Window生成用クラス
+*	DirectSoundクラス
 */
-class Windows
+class DirectSoundDevice
 {
 public:
 	//--------------------------------------------------
@@ -21,57 +22,45 @@ public:
 	/*
 	*	コンストラクタ
 	*/
-	Windows();
+	DirectSoundDevice(HWND _hWnd);
 
 	/*
 	*	デストラクタ
 	*/
-	~Windows();
+	~DirectSoundDevice();
 
 	/*
-	*	ウインドウ生成
-	*	第一引数	ウィンドウの名前
-	*	第二引数	ウィンドウの横幅
-	*	第三引数	ウインドウの高さ
-	*	第四引数	ウインドウスタイル
+	*	Directsoundの初期化
 	*/
-	bool Initialize(
-		LPCTSTR _pWindowName,
-		int _windowWidth,
-		int _windowHeight,
-		DWORD _style);
+	HRESULT InitDSound();
 
 	/*
-	*	ウインドウ破棄
+	*	サウンドファイルを開く
 	*/
-	void Finalize();
+	bool OpenWave(TCHAR* _filename, WAVEFORMATEX &_wFmt, char** _pWaveData, DWORD &_waveSize);
 
 	/*
-	*	ウインドウの更新
-	*	ウインドウが破棄されていたらtrue 生きていたらfalse
+	*	IDirectSound8インターフェースを返す
 	*/
-	bool Update();
-
-	/*
-	*	ウインドウハンドルを返す
-	*/
-	inline HWND GetWndHandle() const 
+	inline IDirectSound8* GetSound()
 	{
-		return m_hWnd;
+		return m_pDirectSound;
 	}
-
 private:
 	//--------------------------------------------------
 	//	private variable
 	//--------------------------------------------------
 	/*
-	*	ウインドウハンドル
+	*	ハンドル
 	*/
 	HWND m_hWnd;
+
 	/*
-	*	ウインドウメッセージ構造体変数
+	*	IDirectSound8インターフェース
 	*/
-	MSG m_WindowMsg;
+	IDirectSound8* m_pDirectSound = nullptr;
 };
+
+
 
 #endif

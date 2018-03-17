@@ -78,7 +78,7 @@ bool Windows::Initialize(LPCTSTR _pWindowName, int _windowWidth, int _windowHeig
 	if (m_hWnd == nullptr)
 	{
 		DebugBreak();
-		MessageBox(0, "ウインドウの作成に失敗しました", NULL, MB_OK);
+		OutPutError("ウインドウの作成に失敗しました");
 		return false;
 	}
 

@@ -42,8 +42,11 @@ enum Analog
 };
 
 //--------------------------------------------------
-//	Xinput使用用クラス
+//	class
 //--------------------------------------------------
+/*
+*	Xinput使用用クラス
+*/
 class XInputDevice : public SingletonBase<XInputDevice>
 {
 public:

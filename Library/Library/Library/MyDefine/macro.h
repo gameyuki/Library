@@ -1,6 +1,18 @@
 #ifndef  MACRO_H
 #define  MACRO_H
 
+//--------------------------------------------------
+//	include
+//--------------------------------------------------
+#include<Windows.h>
+
+
+//--------------------------------------------------
+//	public function
+//--------------------------------------------------
+/*
+*	Release用テンプレート関数
+*/
 template<typename Type>
 inline void SafeRelease(Type*& _type)
 {
@@ -11,6 +23,9 @@ inline void SafeRelease(Type*& _type)
 	}
 }
 
+/*
+*	delete用テンプレート関数
+*/
 template<typename Type>
 inline void SafeDelete(Type*& _type)
 {
@@ -21,6 +36,9 @@ inline void SafeDelete(Type*& _type)
 	}
 }
 
+/*
+*	delete 配列用テンプレート関数
+*/
 template<typename Type>
 inline void SafeDeleteArray(Type*& _type)
 {
@@ -30,4 +48,13 @@ inline void SafeDeleteArray(Type*& _type)
 		(_type) = nullptr;
 	}
 }
+
+/*
+*	エラー用メッセージ関数
+*/
+void OutPutError(char* _errorlog)
+{
+	MessageBox(0, _errorlog, "", MB_OK);
+}
+
 #endif

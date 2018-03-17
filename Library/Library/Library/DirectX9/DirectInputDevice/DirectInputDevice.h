@@ -35,48 +35,9 @@ enum KEYSTATE
 	OFF
 };
 
-/* キーボードの種類 */
-enum KEYKIND
-{
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN,
-	FIRE,
-	A,
-	B,
-	C,
-	D,
-	E,
-	F,
-	G,
-	H,
-	I,
-	J,
-	K,
-	L,
-	M,
-	N,
-	O,
-	P,
-	Q,
-	R,
-	S,
-	T,
-	U,
-	V,
-	W,
-	X,
-	Y,
-	Z,
-	SPACE,
-	ESC,
-	LSHIFT,
-	RSHIFT,
-	ESCAPE,
-	KEYMAX
-};
-
+//--------------------------------------------------
+//	class
+//--------------------------------------------------
 /*
 *	DirectInputクラス
 */
@@ -89,12 +50,12 @@ public:
 	/*
 	*	デストラクタ
 	*/
-	~DirectInputDevice() {};
+	~DirectInputDevice();
 
 	/*
 	*	DirectInputオブジェクトの作成
 	*/
-	void InitDinput(HWND _hWnd);
+	void InitDinput();
 
 	/* 
 	*	キーオブジェクトの初期化
@@ -137,7 +98,7 @@ private:
 	/*
 	*	隠しコンストラクタ
 	*/
-	DirectInputDevice(HWND _hwnd);
+	DirectInputDevice(HWND _hWnd);
 
 	/*
 	*	キーボードの解放
@@ -156,17 +117,17 @@ private:
 	/* 
 	*	DirectInputオブジェクトの格納先
 	*/
-	LPDIRECTINPUT8 m_pDinput = NULL; 
+	LPDIRECTINPUT8 m_pDinput = nullptr;
 
 	/* 
 	*	マウスデバイス 
 	*/
-	LPDIRECTINPUTDEVICE8 m_pDIMouse = NULL;
+	LPDIRECTINPUTDEVICE8 m_pDIMouse = nullptr;
 
 	/* 
 	*	キーデバイス
 	*/
-	LPDIRECTINPUTDEVICE8 m_pKeyDevice = NULL;
+	LPDIRECTINPUTDEVICE8 m_pKeyDevice = nullptr;
 
 	/*
 	*	DirectInputクラス固有のハンドル

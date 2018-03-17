@@ -5,11 +5,21 @@
 #include"Library\MyDefine\macro.h"
 
 //--------------------------------------------------
+//	コンストラクタ : デストラクタ
+//--------------------------------------------------
+DirectInputDevice::DirectInputDevice(HWND _hWnd):m_hWnd(_hWnd)
+{
+}
+
+DirectInputDevice::~DirectInputDevice()
+{
+}
+
+//--------------------------------------------------
 //	public function
 //--------------------------------------------------
-void DirectInputDevice::InitDinput(HWND _hWnd)
+void DirectInputDevice::InitDinput()
 {
-	m_hWnd = _hWnd;
 
 	/* DirectInputオブジェクトの作成 */
 	if (FAILED(DirectInput8Create(
@@ -19,31 +29,34 @@ void DirectInputDevice::InitDinput(HWND _hWnd)
 		(VOID**)&m_pDinput,
 		NULL)))
 	{
-		MessageBox(0, "DirectInputの作成に失敗しました", NULL, MB_OK);
+		OutPutError("DirectInputの作成に失敗しました");
 	}
 }
 
 bool DirectInputDevice::KeyInitialize() 
 {
+	/* キーデバイスの初期化 */
 	if (FAILED(m_pDinput->CreateDevice(
 		GUID_SysKeyboard,
 		&m_pKeyDevice,
 		NULL)))
 	{
-		MessageBox(0, "キーの作成に失敗しました", NULL, MB_OK);
+		OutPutError("キーの作成に失敗しました");
 		return false;
 	}
 
+	/* データフォーマット */
 	if (FAILED(m_pKeyDevice->SetDataFormat(&c_dfDIKeyboard)))
 	{
-		MessageBox(0, "キーの作成に失敗しました", NULL, MB_OK);
+		OutPutError("キーの作成に失敗しました");
 		return false;
 	}
 
+	/* 協調レベルの設定 */
 	if (FAILED(m_pKeyDevice->SetCooperativeLevel(
 		m_hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
 	{
-		MessageBox(0, "キーの作成に失敗しました", NULL, MB_OK);
+		OutPutError("キーの作成に失敗しました");
 		return false;
 	}
 
@@ -59,14 +72,14 @@ bool DirectInputDevice::MouseInitialize()
 		&m_pDIMouse,
 		NULL)))
 	{
-		MessageBox(0, "マウスの作成に失敗しました", NULL, MB_OK);
+		OutPutError("マウスの作成に失敗しました");
 		return false;
 	}
 
 	/* データフォーマット */
 	if (FAILED(m_pDIMouse->SetDataFormat(&c_dfDIMouse)))
 	{
-		MessageBox(0, "DirectInputの作成に失敗しました", NULL, MB_OK);
+		OutPutError("DirectInputの作成に失敗しました");
 		return false;
 	}
 
@@ -74,7 +87,7 @@ bool DirectInputDevice::MouseInitialize()
 	if (FAILED(m_pDIMouse->SetCooperativeLevel(m_hWnd,
 		DISCL_NONEXCLUSIVE | DISCL_FOREGROUND)))
 	{
-		MessageBox(0, "マウスの作成に失敗しました", NULL, MB_OK);
+		OutPutError("マウスの作成に失敗しました");
 		return false;
 	}
 
@@ -89,7 +102,7 @@ bool DirectInputDevice::MouseInitialize()
 		DIPROP_AXISMODE,
 		&diprop.diph)))
 	{
-		MessageBox(0, "マウスの作成に失敗しました", NULL, MB_OK);
+		OutPutError("マウスの作成に失敗しました");
 		return false;
 	}
 
@@ -99,7 +112,7 @@ bool DirectInputDevice::MouseInitialize()
 		DIPROP_BUFFERSIZE,
 		&diprop.diph)))
 	{
-		MessageBox(0, "マウスの作成に失敗しました", NULL, MB_OK);
+		OutPutError("マウスの作成に失敗しました");
 		return false;
 	}
 	m_pDIMouse->Acquire();
@@ -200,7 +213,7 @@ void DirectInputDevice::KeyCheckDinput(KEYSTATE* _Key, int _DIK)
 //--------------------------------------------------
 void DirectInputDevice::ReleaseKey()
 {
-	if (m_pKeyDevice)
+	if (m_pKeyDevice != nullptr)
 	{
 		m_pKeyDevice->Unacquire();
 	}
@@ -209,7 +222,7 @@ void DirectInputDevice::ReleaseKey()
 
 void DirectInputDevice::ReleaseMouse()
 {
-	if (m_pDIMouse != NULL)
+	if (m_pDIMouse != nullptr)
 	{
 		m_pDIMouse->Unacquire();
 	}

@@ -7,6 +7,9 @@
 #include<Windows.h>
 
 
+//--------------------------------------------------
+//	 class
+//--------------------------------------------------
 /*
 *	Singletonの基底クラス
 *
@@ -18,12 +21,14 @@ public:
 
 	/*
 	*	インスタンスの生成
+	*	第一引数　可変長引数　ハンドル用
 	*/
-	inline static void Create()
+	template <typename ...Args>
+	inline static void Create(Args... args)
 	{
 		if (m_pInstance == nullptr)
 		{
-			m_pInstance = new Type();
+			m_pInstance = new Type(args);
 		}
 	}
 
