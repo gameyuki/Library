@@ -124,6 +124,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Library\DirectX9\DirectGraphicsDevice\DirectGraphicsDevice.cpp" />
     <ClCompile Include="Library\DirectX9\DirectInputDevice\DirectInputDevice.cpp" />
     <ClCompile Include="Library\DirectX9\SoundManager\DirectSoundDevice\DirectSoundDevice.cpp" />
     <ClCompile Include="Library\DirectX9\SoundManager\SoundManager.cpp" />
@@ -135,6 +136,7 @@
     <ClCompile Include="Library\XInputDevice\XInputDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Library\DirectX9\DirectGraphicsDevice\DirectGraphicsDevice.h" />
     <ClInclude Include="Library\DirectX9\DirectInputDevice\DirectInputDevice.h" />
     <ClInclude Include="Library\DirectX9\SoundManager\DirectSoundDevice\DirectSoundDevice.h" />
     <ClInclude Include="Library\DirectX9\SoundManager\SoundManager.h" />
