@@ -128,6 +128,7 @@
     <ClCompile Include="Library\DirectX9\DirectInputDevice\DirectInputDevice.cpp" />
     <ClCompile Include="Library\DirectX9\SoundManager\DirectSoundDevice\DirectSoundDevice.cpp" />
     <ClCompile Include="Library\DirectX9\SoundManager\SoundManager.cpp" />
+    <ClCompile Include="Library\DirectX9\TextureManager\TextureManager.cpp" />
     <ClCompile Include="Library\ObjectBase\ObjectBase.cpp" />
     <ClCompile Include="Library\SceneManager\SceneBase\SceneBase.cpp" />
     <ClCompile Include="Library\SceneManager\SceneManager.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Library\DirectX9\DirectInputDevice\DirectInputDevice.h" />
     <ClInclude Include="Library\DirectX9\SoundManager\DirectSoundDevice\DirectSoundDevice.h" />
     <ClInclude Include="Library\DirectX9\SoundManager\SoundManager.h" />
+    <ClInclude Include="Library\DirectX9\TextureManager\TextureManager.h" />
     <ClInclude Include="Library\MyDefine\macro.h" />
     <ClInclude Include="Library\ObjectBase\ObjectBase.h" />
     <ClInclude Include="Library\SceneManager\SceneBase\SceneBase.h" />
