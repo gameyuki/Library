@@ -6,72 +6,76 @@
 //--------------------------------------------------
 #include<Windows.h>
 
-//--------------------------------------------------
-//	 class
-//--------------------------------------------------
-/*
-*	Window生成用クラス
-*/
-class Windows
+
+namespace Lib
 {
-public:
 	//--------------------------------------------------
-	//	public function
+	//	 class
 	//--------------------------------------------------
 	/*
-	*	コンストラクタ
+	*	Window生成用クラス
 	*/
-	Windows();
-
-	/*
-	*	デストラクタ
-	*/
-	~Windows();
-
-	/*
-	*	ウインドウ生成
-	*	第一引数	ウィンドウの名前
-	*	第二引数	ウィンドウの横幅
-	*	第三引数	ウインドウの高さ
-	*	第四引数	ウインドウスタイル
-	*/
-	bool Initialize(
-		LPCTSTR _pWindowName,
-		int _windowWidth,
-		int _windowHeight,
-		DWORD _style);
-
-	/*
-	*	ウインドウ破棄
-	*/
-	void Finalize();
-
-	/*
-	*	ウインドウの更新
-	*	ウインドウが破棄されていたらtrue 生きていたらfalse
-	*/
-	bool Update();
-
-	/*
-	*	ウインドウハンドルを返す
-	*/
-	inline HWND GetWndHandle() const 
+	class Windows
 	{
-		return m_hWnd;
-	}
+	public:
+		//--------------------------------------------------
+		//	public function
+		//--------------------------------------------------
+		/*
+		*	コンストラクタ
+		*/
+		Windows();
 
-private:
-	//--------------------------------------------------
-	//	private variable
-	//--------------------------------------------------
-	/*
-	*	ウインドウハンドル
-	*/
-	HWND m_hWnd;
-	/*
-	*	ウインドウメッセージ構造体変数
-	*/
-	MSG m_WindowMsg;
-};
+		/*
+		*	デストラクタ
+		*/
+		~Windows();
+
+		/*
+		*	ウインドウ生成
+		*	第一引数	ウィンドウの名前
+		*	第二引数	ウィンドウの横幅
+		*	第三引数	ウインドウの高さ
+		*	第四引数	ウインドウスタイル
+		*/
+		bool Initialize(
+			LPCTSTR _pWindowName,
+			int _windowWidth,
+			int _windowHeight,
+			DWORD _style);
+
+		/*
+		*	ウインドウ破棄
+		*/
+		void Finalize();
+
+		/*
+		*	ウインドウの更新
+		*	ウインドウが破棄されていたらtrue 生きていたらfalse
+		*/
+		bool Update();
+
+		/*
+		*	ウインドウハンドルを返す
+		*/
+		inline HWND GetWndHandle() const
+		{
+			return m_hWnd;
+		}
+
+	private:
+		//--------------------------------------------------
+		//	private variable
+		//--------------------------------------------------
+		/*
+		*	ウインドウハンドル
+		*/
+		HWND m_hWnd;
+		/*
+		*	ウインドウメッセージ構造体変数
+		*/
+		MSG m_WindowMsg;
+	};
+}
 
 #endif

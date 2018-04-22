@@ -52,9 +52,9 @@ inline void SafeDeleteArray(Type*& _type)
 /*
 *	エラー用メッセージ関数
 */
-void OutPutError(char* _errorlog)
+void OutPutError(const char* _errorlog)
 {
-	MessageBox(0, _errorlog, "", MB_OK);
+	OutputDebugString(_errorlog);
 }
 
 #endif

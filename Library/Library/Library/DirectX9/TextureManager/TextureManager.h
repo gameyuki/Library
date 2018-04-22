@@ -9,55 +9,61 @@
 #include<vector>
 #include"Library\SingletonBase\SingletonBase.h"
 
-//--------------------------------------------------
-//	class
-//--------------------------------------------------
-class TextureManager : public SingletonBase<TextureManager>
+namespace Lib
 {
-public:
-	//--------------------------------------------------
-	//	public function
-	//--------------------------------------------------
-	/*
-	*	デストラクタ
-	*/
-	~TextureManager();
-
-	/*
-	*	画像の読み込み
-	*	第一引数	ファイルの名前
-	*	第二引数	テクスチャーIDのアドレス
-	*/
-	bool LoadTexture(LPCTSTR _fname,int* _textureID);
-
-	/*
-	*	画像の貼り付け
-	*	第一引数	各テクスチャーIDのアドレス
-	*/
-	//相談
-	void SetTexture(int* texID);
-
-	/*
-	*	画像の解放
-	*/
-	void Release();
-
-private:
-	//--------------------------------------------------
-	//	private function
-	//--------------------------------------------------
-	/*
-	*	コンストラクタ
-	*/
-	TextureManager();
 
 	//--------------------------------------------------
-	//	private variable
+	//	class
 	//--------------------------------------------------
-	/*
-	*	TextureID格納コンテナ
-	*/
-	std::vector<LPDIRECT3DTEXTURE9> m_pTexture;
-};
+	class TextureManager : public SingletonBase<TextureManager>
+	{
+	public:
+		//--------------------------------------------------
+		//	public function
+		//--------------------------------------------------
+		/*
+		*	コンストラクタ
+		*/
+		TextureManager();
+
+		/*
+		*	デストラクタ
+		*/
+		~TextureManager();
+
+		/*
+		*	画像の読み込み
+		*	第一引数	ファイルの名前
+		*	第二引数	テクスチャーIDのアドレス
+		*/
+		/* @ */
+		bool LoadTexture(LPCTSTR _fname, int &_textureID);
+
+		/*
+		*	画像の貼り付け
+		*	第一引数	各テクスチャーIDのアドレス
+		*/
+		//相談
+		void SetTexture(int* texID);
+
+		/*
+		*	画像の解放
+		*/
+		void Release();
+
+	private:
+		//--------------------------------------------------
+		//	private function
+		//--------------------------------------------------
+
+		//--------------------------------------------------
+		//	private variable
+		//--------------------------------------------------
+		/*
+		*	TextureID格納コンテナ
+		*/
+		std::vector<LPDIRECT3DTEXTURE9> m_pTexture;
+	};
+}
 
 #endif

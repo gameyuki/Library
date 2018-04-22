@@ -28,7 +28,7 @@ public:
 	{
 		if (m_pInstance == nullptr)
 		{
-			m_pInstance = new Type(args);
+			m_pInstance = new Type(args...);
 		}
 	}
 
@@ -62,5 +62,10 @@ protected:
 	inline  virtual ~SingletonBase() {};
 };
 
+/*
+*	‰Šú‰»
+*/
+template <typename Type>
+Type* SingletonBase<Type>::m_pInstance = nullptr;
 
 #endif
