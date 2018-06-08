@@ -75,6 +75,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -126,9 +132,13 @@
   <ItemGroup>
     <ClCompile Include="Library\DirectX9\DirectGraphicsDevice\DirectGraphicsDevice.cpp" />
     <ClCompile Include="Library\DirectX9\DirectInputDevice\DirectInputDevice.cpp" />
+    <ClCompile Include="Library\DirectX9\DirectInputDevice\KeyDevice\KeyDevice.cpp" />
+    <ClCompile Include="Library\DirectX9\DirectInputDevice\MouseDevice\MouseDevice.cpp" />
     <ClCompile Include="Library\DirectX9\SoundManager\DirectSoundDevice\DirectSoundDevice.cpp" />
     <ClCompile Include="Library\DirectX9\SoundManager\SoundManager.cpp" />
     <ClCompile Include="Library\DirectX9\TextureManager\TextureManager.cpp" />
+    <ClCompile Include="Library\InputDevice\InputDevice.cpp" />
+    <ClCompile Include="Library\Math\Math.cpp" />
     <ClCompile Include="Library\ObjectBase\ObjectBase.cpp" />
     <ClCompile Include="Library\SceneManager\SceneBase\SceneBase.cpp" />
     <ClCompile Include="Library\SceneManager\SceneManager.cpp" />
@@ -139,9 +149,13 @@
   <ItemGroup>
     <ClInclude Include="Library\DirectX9\DirectGraphicsDevice\DirectGraphicsDevice.h" />
     <ClInclude Include="Library\DirectX9\DirectInputDevice\DirectInputDevice.h" />
+    <ClInclude Include="Library\DirectX9\DirectInputDevice\KeyDevice\KeyDevice.h" />
+    <ClInclude Include="Library\DirectX9\DirectInputDevice\MouseDevice\MouseDevice.h" />
     <ClInclude Include="Library\DirectX9\SoundManager\DirectSoundDevice\DirectSoundDevice.h" />
     <ClInclude Include="Library\DirectX9\SoundManager\SoundManager.h" />
     <ClInclude Include="Library\DirectX9\TextureManager\TextureManager.h" />
+    <ClInclude Include="Library\InputDevice\InputDevice.h" />
+    <ClInclude Include="Library\Math\Math.h" />
     <ClInclude Include="Library\MyDefine\macro.h" />
     <ClInclude Include="Library\ObjectBase\ObjectBase.h" />
     <ClInclude Include="Library\SceneManager\SceneBase\SceneBase.h" />

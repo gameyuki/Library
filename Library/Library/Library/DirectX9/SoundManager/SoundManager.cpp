@@ -9,13 +9,9 @@ namespace Lib
 	//--------------------------------------------------
 	//	 コンストラクタ  :  デストラクタ
 	//--------------------------------------------------
-	/*
-	*	相談
-	*	ここでnewをしてもいいのか
-	*/
 	SoundManager::SoundManager(HWND _hWnd) :m_hWnd(_hWnd), m_pSoundDevice(nullptr)
 	{
-		m_pSoundDevice = new DirectSoundDevice(m_hWnd);
+		m_pSoundDevice = new Dx9::DirectSoundDevice(m_hWnd);
 	}
 
 	SoundManager::~SoundManager()
@@ -25,7 +21,7 @@ namespace Lib
 	//--------------------------------------------------
 	//	public function
 	//--------------------------------------------------
-	void SoundManager::SoundOperation(IDirectSoundBuffer8* _pDSBuffer, SOUND_OPERATION _operation)
+	void SoundManager::Operation(IDirectSoundBuffer8* _pDSBuffer, SOUND_OPERATION _operation)
 	{
 		switch (_operation)
 		{
@@ -49,7 +45,7 @@ namespace Lib
 
 	}
 
-	int SoundManager::SoundLoad(char* _filename, IDirectSoundBuffer8* _pDSBuffer)
+	int SoundManager::Load(char* _filename, IDirectSoundBuffer8* _pDSBuffer)
 	{
 		WAVEFORMATEX wFmt;
 		char *pWaveData = 0;

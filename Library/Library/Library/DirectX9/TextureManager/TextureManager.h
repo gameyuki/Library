@@ -44,7 +44,7 @@ namespace Lib
 		*	第一引数	各テクスチャーIDのアドレス
 		*/
 		//相談
-		void SetTexture(int* texID);
+		void SetTexture(int* _ptexID);
 
 		/*
 		*	画像の解放

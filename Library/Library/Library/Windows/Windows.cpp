@@ -44,7 +44,7 @@ namespace Lib
 		Finalize();
 	}
 
-	bool Windows::Initialize(LPCTSTR _pWindowName, int _windowWidth, int _windowHeight, DWORD _style)
+	bool Windows::Initialize(LPCTSTR _pWindowName, int _windowWidth, int _windowHeight)
 	{
 		//WindowÉNÉâÉXÇÃê›íË
 		WNDCLASSEX Wndclass;

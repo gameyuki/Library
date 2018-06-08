@@ -6,229 +6,233 @@
 
 namespace Lib
 {
-
-	//--------------------------------------------------
-	//	コンストラクタ : デストラクタ
-	//--------------------------------------------------
-	DirectInputDevice::DirectInputDevice(HWND _hWnd) :m_hWnd(_hWnd)
+	namespace Dx9
 	{
-	}
-
-	DirectInputDevice::~DirectInputDevice()
-	{
-	}
-
-	//--------------------------------------------------
-	//	public function
-	//--------------------------------------------------
-	void DirectInputDevice::InitDinput()
-	{
-
-		/* DirectInputオブジェクトの作成 */
-		if (FAILED(DirectInput8Create(
-			GetModuleHandle(NULL),
-			DIRECTINPUT_VERSION,
-			IID_IDirectInput8,
-			(VOID**)&m_pDinput,
-			NULL)))
+		//--------------------------------------------------
+		//	コンストラクタ : デストラクタ
+		//--------------------------------------------------
+		DirectInputDevice::DirectInputDevice(HWND _hWnd) :m_hWnd(_hWnd)
 		{
-			OutPutError("DirectInputの作成に失敗しました");
-		}
-	}
-
-	bool DirectInputDevice::KeyInitialize()
-	{
-		/* キーデバイスの初期化 */
-		if (FAILED(m_pDinput->CreateDevice(
-			GUID_SysKeyboard,
-			&m_pKeyDevice,
-			NULL)))
-		{
-			OutPutError("キーの作成に失敗しました");
-			return false;
 		}
 
-		/* データフォーマット */
-		if (FAILED(m_pKeyDevice->SetDataFormat(&c_dfDIKeyboard)))
+		DirectInputDevice::~DirectInputDevice()
 		{
-			OutPutError("キーの作成に失敗しました");
-			return false;
 		}
 
-		/* 協調レベルの設定 */
-		if (FAILED(m_pKeyDevice->SetCooperativeLevel(
-			m_hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
+		//--------------------------------------------------
+		//	public function
+		//--------------------------------------------------
+		void DirectInputDevice::InitDinput()
 		{
-			OutPutError("キーの作成に失敗しました");
-			return false;
-		}
 
-		m_pKeyDevice->Acquire();
-		return true;
-	}
-
-	bool DirectInputDevice::MouseInitialize()
-	{
-		/* マウスの初期化 */
-		if (FAILED(m_pDinput->CreateDevice(
-			GUID_SysMouse,
-			&m_pDIMouse,
-			NULL)))
-		{
-			OutPutError("マウスの作成に失敗しました");
-			return false;
-		}
-
-		/* データフォーマット */
-		if (FAILED(m_pDIMouse->SetDataFormat(&c_dfDIMouse)))
-		{
-			OutPutError("DirectInputの作成に失敗しました");
-			return false;
-		}
-
-		/* 協調レベルの設定 */
-		if (FAILED(m_pDIMouse->SetCooperativeLevel(m_hWnd,
-			DISCL_NONEXCLUSIVE | DISCL_FOREGROUND)))
-		{
-			OutPutError("マウスの作成に失敗しました");
-			return false;
-		}
-
-		DIPROPDWORD diprop;
-		diprop.diph.dwSize = sizeof(diprop);
-		diprop.diph.dwHeaderSize = sizeof(diprop.diph);
-		diprop.diph.dwObj = 0;
-		diprop.diph.dwHow = DIPH_DEVICE;
-		diprop.dwData = DIPROPAXISMODE_REL;
-
-		if (FAILED(m_pDIMouse->SetProperty(
-			DIPROP_AXISMODE,
-			&diprop.diph)))
-		{
-			OutPutError("マウスの作成に失敗しました");
-			return false;
-		}
-
-		diprop.dwData = Buffer_Size;
-
-		if (FAILED(m_pDIMouse->SetProperty(
-			DIPROP_BUFFERSIZE,
-			&diprop.diph)))
-		{
-			OutPutError("マウスの作成に失敗しました");
-			return false;
-		}
-		m_pDIMouse->Acquire();
-		return true;
-	}
-
-	void DirectInputDevice::Finalize()
-	{
-		ReleaseKey();
-		ReleaseMouse();
-	}
-
-	void DirectInputDevice::MouseCheck(MOUSEKIND* _Mouse)
-	{
-		DIMOUSESTATE MouseState;
-
-		m_pDIMouse->Acquire();
-		HRESULT hr = m_pDIMouse->GetDeviceState(sizeof(DIMOUSESTATE), &MouseState);
-		if (SUCCEEDED(hr))
-		{
-			if (MouseState.rgbButtons[0])
+			/* DirectInputオブジェクトの作成 */
+			if (FAILED(DirectInput8Create(
+				GetModuleHandle(NULL),
+				DIRECTINPUT_VERSION,
+				IID_IDirectInput8,
+				(VOID**)&m_pDinput,
+				NULL)))
 			{
-				_Mouse->IsLeftClick = true;
-			}
-			else
-			{
-				_Mouse->IsLeftClick = false;
+				OutPutError("DirectInputの作成に失敗しました");
 			}
 
-			if (MouseState.rgbButtons[1])
+			for (int i = 0;i < 256; i++)
 			{
-				_Mouse->IsRightClick = true;
-			}
-			else
-			{
-				_Mouse->IsRightClick = false;
-			}
-
-			if (MouseState.lX)
-			{
-				_Mouse->lx = MouseState.lX;
-			}
-
-			if (MouseState.lY)
-			{
-				_Mouse->ly = MouseState.lY;
-			}
-
-			/* ホイール */
-			if (MouseState.lZ)
-			{
-				_Mouse->lz = MouseState.lZ;
+				Old_diks[i] = { KEYS_OFF };
 			}
 		}
-	}
 
-	void DirectInputDevice::KeyCheckDinput(KEYSTATE* _Key, int _DIK)
-	{
-		BYTE diks[256];
-		static int old_diks[256] = { OFF };
-
-		HRESULT hr = m_pKeyDevice->Acquire();
-
-		if ((hr == DI_OK) || (hr == S_FALSE))
+		bool DirectInputDevice::KeyInitialize()
 		{
-
-			m_pKeyDevice->GetDeviceState(sizeof(diks), &diks);
-			if (diks[_DIK] & 0x80)
+			/* キーデバイスの初期化 */
+			if (FAILED(m_pDinput->CreateDevice(
+				GUID_SysKeyboard,
+				&m_pKeyDevice,
+				NULL)))
 			{
-				if (old_diks[_DIK] == OFF)
+				OutPutError("キーの作成に失敗しました");
+				return false;
+			}
+
+			/* データフォーマット */
+			if (FAILED(m_pKeyDevice->SetDataFormat(&c_dfDIKeyboard)))
+			{
+				OutPutError("キーの作成に失敗しました");
+				return false;
+			}
+
+			/* 協調レベルの設定 */
+			if (FAILED(m_pKeyDevice->SetCooperativeLevel(
+				m_hWnd, DISCL_NONEXCLUSIVE | DISCL_BACKGROUND)))
+			{
+				OutPutError("キーの作成に失敗しました");
+				return false;
+			}
+
+			m_pKeyDevice->Acquire();
+			return true;
+		}
+
+		bool DirectInputDevice::MouseInitialize()
+		{
+			/* マウスの初期化 */
+			if (FAILED(m_pDinput->CreateDevice(
+				GUID_SysMouse,
+				&m_pDIMouse,
+				NULL)))
+			{
+				OutPutError("マウスの作成に失敗しました");
+				return false;
+			}
+
+			/* データフォーマット */
+			if (FAILED(m_pDIMouse->SetDataFormat(&c_dfDIMouse)))
+			{
+				OutPutError("DirectInputの作成に失敗しました");
+				return false;
+			}
+
+			/* 協調レベルの設定 */
+			if (FAILED(m_pDIMouse->SetCooperativeLevel(m_hWnd,
+				DISCL_NONEXCLUSIVE | DISCL_FOREGROUND)))
+			{
+				OutPutError("マウスの作成に失敗しました");
+				return false;
+			}
+
+			DIPROPDWORD diprop;
+			diprop.diph.dwSize = sizeof(diprop);
+			diprop.diph.dwHeaderSize = sizeof(diprop.diph);
+			diprop.diph.dwObj = 0;
+			diprop.diph.dwHow = DIPH_DEVICE;
+			diprop.dwData = DIPROPAXISMODE_REL;
+
+			if (FAILED(m_pDIMouse->SetProperty(
+				DIPROP_AXISMODE,
+				&diprop.diph)))
+			{
+				OutPutError("マウスの作成に失敗しました");
+				return false;
+			}
+
+			diprop.dwData = Buffer_Size;
+
+			if (FAILED(m_pDIMouse->SetProperty(
+				DIPROP_BUFFERSIZE,
+				&diprop.diph)))
+			{
+				OutPutError("マウスの作成に失敗しました");
+				return false;
+			}
+			m_pDIMouse->Acquire();
+			return true;
+		}
+
+		void DirectInputDevice::Finalize()
+		{
+			ReleaseKey();
+			ReleaseMouse();
+		}
+
+		void DirectInputDevice::MouseCheck(MOUSEKIND* _Mouse)
+		{
+			DIMOUSESTATE MouseState;
+
+			m_pDIMouse->Acquire();
+			HRESULT hr = m_pDIMouse->GetDeviceState(sizeof(DIMOUSESTATE), &MouseState);
+			if (SUCCEEDED(hr))
+			{
+				if (MouseState.rgbButtons[0])
 				{
-					*_Key = PUSH;
+					_Mouse->IsLeftClick = true;
 				}
 				else
 				{
-					*_Key = ON;
+					_Mouse->IsLeftClick = false;
 				}
 
-				old_diks[_DIK] = ON;
-			}
-			else
-			{
-				if (old_diks[_DIK] == ON)
+				if (MouseState.rgbButtons[1])
 				{
-					*_Key = RELEASE;
+					_Mouse->IsRightClick = true;
 				}
 				else
 				{
-					*_Key = OFF;
+					_Mouse->IsRightClick = false;
 				}
-				old_diks[_DIK] = OFF;
+
+				if (MouseState.lX)
+				{
+					_Mouse->lx = MouseState.lX;
+				}
+
+				if (MouseState.lY)
+				{
+					_Mouse->ly = MouseState.lY;
+				}
+
+				/* ホイール */
+				if (MouseState.lZ)
+				{
+					_Mouse->lz = MouseState.lZ;
+				}
 			}
 		}
-	}
 
-	//--------------------------------------------------
-	//	private function
-	//--------------------------------------------------
-	void DirectInputDevice::ReleaseKey()
-	{
-		if (m_pKeyDevice != nullptr)
+		void DirectInputDevice::KeyDownCheck(KEYSTATE* _Key, int _DIK)
 		{
-			m_pKeyDevice->Unacquire();
-		}
-		SafeRelease(m_pKeyDevice);
-	}
+			HRESULT hr = m_pKeyDevice->Acquire();
 
-	void DirectInputDevice::ReleaseMouse()
-	{
-		if (m_pDIMouse != nullptr)
-		{
-			m_pDIMouse->Unacquire();
+			if ((hr == DI_OK) || (hr == S_FALSE))
+			{
+
+				m_pKeyDevice->GetDeviceState(sizeof(diks), &diks);
+				if (diks[_DIK] & 0x80)
+				{
+					if (Old_diks[_DIK] == KEYS_OFF)
+					{
+						*_Key = KEYS_PRESSED;
+					}
+					else
+					{
+						*_Key = KEYS_DOWN;
+					}
+
+					Old_diks[_DIK] = KEYS_DOWN;
+				}
+				else
+				{
+					if (Old_diks[_DIK] == KEYS_DOWN)
+					{
+						*_Key = KEYS_RELEASE;
+					}
+					else
+					{
+						*_Key = KEYS_OFF;
+					}
+					Old_diks[_DIK] = KEYS_OFF;
+				}
+			}
 		}
-		SafeRelease(m_pDIMouse);
+
+		//--------------------------------------------------
+		//	private function
+		//--------------------------------------------------
+		void DirectInputDevice::ReleaseKey()
+		{
+			if (m_pKeyDevice != nullptr)
+			{
+				m_pKeyDevice->Unacquire();
+			}
+			SafeRelease(m_pKeyDevice);
+		}
+
+		void DirectInputDevice::ReleaseMouse()
+		{
+			if (m_pDIMouse != nullptr)
+			{
+				m_pDIMouse->Unacquire();
+			}
+			SafeRelease(m_pDIMouse);
+		}
 	}
 }

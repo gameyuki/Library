@@ -22,15 +22,12 @@ namespace Lib
 	//--------------------------------------------------
 	//	public function
 	//--------------------------------------------------
-	/*
-	*	参照は中身が書き換えない時に使おう
-	*/
 	bool TextureManager::LoadTexture(LPCTSTR _fname, int &_textureID)
 	{
 		LPDIRECT3DTEXTURE9 tex;
 
 		if (FAILED(D3DXCreateTextureFromFileEx(
-			DirectGraphicsDevice::GetInstance()->GetD3Device9(),
+			Dx9::DirectGraphicsDevice::GetInstance()->GetD3Device9(),
 			_fname,
 			0,
 			0,
@@ -49,16 +46,15 @@ namespace Lib
 			return false;
 		}
 
-		/* インデックス番号を返している */
 		_textureID = m_pTexture.size();
 		m_pTexture.push_back(tex);
 
 		return true;
 	}
 
-	void TextureManager::SetTexture(int* _texID)
+	void TextureManager::SetTexture(int* _ptexID)
 	{
-		DirectGraphicsDevice::GetInstance()->GetD3Device9()->SetTexture(0, m_pTexture[*_texID]);
+		Dx9::DirectGraphicsDevice::GetInstance()->GetD3Device9()->SetTexture(0, m_pTexture[*_ptexID]);
 	}
 
 	void TextureManager::Release()

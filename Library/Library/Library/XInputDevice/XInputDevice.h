@@ -10,19 +10,27 @@
 #include"Library\SingletonBase\SingletonBase.h"
 
 namespace Lib
+	/*@*/
 {
 
 	//--------------------------------------------------
 	//	enum
 	//--------------------------------------------------
+	/*
+	*	現在のPAD情報
+	*/
 	enum PadState
 	{
-		PADON,
-		PADOFF,
-		PADPUSH,
-		PADRELEASE
+		PAD_DOWN,
+		PAD_OFF,
+		PAD_PRESSED,
+		PAD_RELEASE,
+		PAD_MAX
 	};
 
+	/*
+	*	ボタンの種類
+	*/
 	enum ButtonIndex
 	{
 		BUTTON_A,
@@ -35,6 +43,9 @@ namespace Lib
 		BUTTON_INDEXMAX
 	};
 
+	/*
+	*	スティック情報
+	*/
 	enum Analog
 	{
 		ANALOG_UP,
@@ -95,10 +106,6 @@ namespace Lib
 
 	private:
 		//--------------------------------------------------
-		//	private function
-		//--------------------------------------------------
-
-		//--------------------------------------------------
 		//	private variable
 		//--------------------------------------------------
 		/*
@@ -114,7 +121,12 @@ namespace Lib
 		/*
 		*	前のボタン情報
 		*/
-		PadState m_PadoldState[BUTTON_INDEXMAX] = { PADOFF };
+		PadState m_PadoldState[BUTTON_INDEXMAX] = { PAD_OFF };
+
+		/*
+		*	
+		*/
+		const float MAX = 65536;
 	};
 
 }

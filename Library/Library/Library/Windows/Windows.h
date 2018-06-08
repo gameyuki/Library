@@ -36,13 +36,11 @@ namespace Lib
 		*	第一引数	ウィンドウの名前
 		*	第二引数	ウィンドウの横幅
 		*	第三引数	ウインドウの高さ
-		*	第四引数	ウインドウスタイル
 		*/
 		bool Initialize(
 			LPCTSTR _pWindowName,
 			int _windowWidth,
-			int _windowHeight,
-			DWORD _style);
+			int _windowHeight);
 
 		/*
 		*	ウインドウ破棄

@@ -53,19 +53,20 @@ namespace Lib
 		*/
 		~SoundManager();
 
+		//@クラス名でサウンドを使っているのに関数名にもサウンドを使うのは少しおかしい
 		/*
 		*	サウンド操作
 		*	第一引数	IDirectSoundBuffer8インターフェース
 		*	第二引数	操作命令
 		*/
-		void SoundOperation(IDirectSoundBuffer8* _pDSBuffer, SOUND_OPERATION _operation);
+		void Operation(IDirectSoundBuffer8* _pDSBuffer, SOUND_OPERATION _operation);
 
 		/*
 		*	サウンドファイル展開
 		*	第一引数	ファイル名(ファイルパス)
 		*	第二引数	IDirectSoundBuffer8インターフェース
 		*/
-		int SoundLoad(char* _filename, IDirectSoundBuffer8* _pDSBuffer);
+		int Load(char* _filename, IDirectSoundBuffer8* _pDSBuffer);
 
 	private:
 		//--------------------------------------------------
@@ -81,9 +82,9 @@ namespace Lib
 		HWND m_hWnd;
 
 		/*
-		*	DirectSoundインスタンス
+		*	DirectX9用 DirectSoundインスタンス
 		*/
-		DirectSoundDevice* m_pSoundDevice;
+		Dx9::DirectSoundDevice* m_pSoundDevice;
 
 	};
 
